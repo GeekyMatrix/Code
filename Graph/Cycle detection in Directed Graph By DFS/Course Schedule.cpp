@@ -23,14 +23,15 @@ public:
         vector<int>data=x;
         int a=data[0];
         int b=data[1];
-        adj[a].push_back(b);
+        //b---->a
+        adj[b].push_back(a);
         }
     //Dfs call 
     for(int i=0;i<n;i++){
         if(!Visited[i]){
-            if(Dfs(i,Visited,currVisited,adj)) return false;
+            if(Dfs(i,Visited,currVisited,adj)) return false; //course complete nhi kr skte
     }
     }
-    return true;
+    return true; //course complete kr skte ho
     }
 };
