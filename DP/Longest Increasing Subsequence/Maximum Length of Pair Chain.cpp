@@ -23,7 +23,7 @@ public:
     }
 
 // Greedy approach
-  //TC=O(n) SC=O(n)
+  //TC=O(n logn) SC=O(n)
  static bool comp(pair<int,int>a,pair<int,int>b){
    return a.second<b.second;
   }
