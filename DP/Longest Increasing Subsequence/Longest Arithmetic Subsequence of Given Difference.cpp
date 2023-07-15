@@ -1,41 +1,85 @@
 class Solution {
 public:
-//T.C=O(N^2) S.C=O(N) THIS GIVES US TLE
+//Recursive method
 
-    int longestSubsequence(vector<int>& arr, int difference) {
-        int n=arr.size();
-        vector<int>dp(n,1);
-          int maxL=1;
+int n;
+int D;
 
-        for(int i=1;i<n;i++){
-          int temp=arr[i]-difference;
-          for(int j=0;j<i;j++){
-            if(temp==arr[j]) {
-                 dp[i]=max(dp[i],1+dp[j]);
-                 maxL=max(maxL,dp[i]);
-            }
-          }
-        }
-        return maxL;
+int solve(int idx,vector<int>& arr){
+int result=0;
+
+for(int j=idx+1;j<n;j++){
+    int preVal=arr[idx];
+    int currVal=arr[j];
+
+    if(currVal-preVal==D) {
+        result=max(result,1+solve(j,arr));
     }
-
-//T.C=O(N) S.C =O(N)
+}
+  return result;
+}
 int longestSubsequence(vector<int>& arr, int difference) {
-  unordered_map<int,int>dp;
-  int ans=0;
+    n=arr.size();
+int result=0;
+ D=difference;
+for(int i=0;i<n;i++){
+
+    result=max(result,1+solve(i,arr));
+
+}
+ return result;
+}
+
+//Memoization
+ 
+int n;
+int D;
+int t[100001];
+int solve(int idx,vector<int>& arr){
+int result=0;
+
+if(t[idx]!=-1) return t[idx];
+for(int j=idx+1;j<n;j++){
+    int preVal=arr[idx];
+    int currVal=arr[j];
+
+    if(currVal-preVal==D) {
+        result=max(result,1+solve(j,arr));
+    }
+}
+  return t[idx]=result;
+}
+int longestSubsequence(vector<int>& arr, int difference) {
+    n=arr.size();
+int result=0;
+ D=difference;
+ memset(t,-1,sizeof(t));
+for(int i=0;i<n;i++){
+
+    result=max(result,1+solve(i,arr));
+
+}
+ return result;
+}
+
+//DP WITH HASHMAP
+
+int longestSubsequence(vector<int>& arr, int difference) {
+  unordered_map<int,int>mp;
+  int result=0;
   
   for(int i=0;i<arr.size();i++){
-  int temp=arr[i]-difference;
-  int tempAns=0;
- //check answer exist for temp already or not
- if(dp.count(temp)) tempAns=dp[temp];
+  int prev=arr[i]-difference;
+
+ //check answer exist for prev already or not
+ int length_till_prev=mp[prev];
 
  //current answer update
- dp[arr[i]]=1+tempAns;
+ mp[arr[i]]=1+length_till_prev;
  
- //ans ko update kardo
- ans=max(ans,dp[arr[i]]);
+ //result ko update kardo
+ result=max(result,mp[arr[i]]);
   }
- return ans;
+ return result;
 }
 };
