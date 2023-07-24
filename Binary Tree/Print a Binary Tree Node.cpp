@@ -1,3 +1,8 @@
+/*o/p----->>>>>
+  1:L2 R3
+  2:
+  3:
+*/
 void printTree(Binary TreeNode<int>*root){
 //BASE CASE
   if(root==NULL) return;
