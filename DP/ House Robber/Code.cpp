@@ -1,6 +1,5 @@
 class Solution {
 public:
-
 //RECURSIVE METHOD
 int solve(vector<int> nums,int i){
     //BASE CASE
@@ -50,5 +49,23 @@ dp[1]=max(nums[0],nums[1]);
      dp[i]=max(incl,excl);
  }
 return dp[n-1];
+ }
+
+//Constant space
+int rob(vector<int>& nums) {
+    int n=nums.size();
+      if(n==1)     return nums[0];
+
+ int prev_prev=nums[0];
+ int prev=max(nums[0],nums[1]);
+ for(int i=2;i<n;i++){
+     int incl=prev_prev+nums[i];
+     int excl=prev+0;
+    int temp=max(incl,excl);
+
+   prev_prev=prev;
+   prev=temp;
+ }
+return prev;
  }
 };
