@@ -25,7 +25,7 @@ vector<int>topologicalSort(vector<vector<int>>&edges,int v,int e){
   for(int i=0;i<v;i++){
    if(!visited[i]) toposort(i,visited,s,adj);
   }
-  //ANSWER MAI PUSHKARDO
+  //ANSWER MAI PUSH KARDO
   vector<int>ans;
   while(!s.empty()){
  ans.push(s.top());
