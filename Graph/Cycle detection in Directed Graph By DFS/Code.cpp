@@ -1,3 +1,5 @@
+// visited[node]== true && dfsvisited[node]==true; ------> mtlb cycle present hai
+
 class Solution {
   public:
     
