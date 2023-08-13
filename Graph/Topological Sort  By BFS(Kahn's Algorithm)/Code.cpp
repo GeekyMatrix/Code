@@ -1,10 +1,12 @@
+//comment kiya hua wala cycle wala part hai
+
 class Solution {
   public:
     // Function to detect cycle in a directed graph.
     bool isCyclic(int N, vector<int> adj[]) {
         queue<int> que;
 	    vector<int> indegree(N, 0);
-	    int count = 0;
+	    
 	    //1 Sbka indegree find karo
 	    for(int u = 0; u<N; u++) {
 	        for(int &v : adj[u]) {
@@ -20,13 +22,13 @@ class Solution {
 	    }
 	    
 	    //3. Simple BFS
-      vector<int>ans;
+      vector<int>ans;   //  int count = 0;
 	    while(!que.empty()) {
 	        int front = que.front();
 	        que.pop();
 
         //ANSWER STORE KARLO
-        ans.push_back(front);
+        ans.push_back(front);   //count++;
         
 	        for(int &neighbour : adj[front]) {
 	            indegree[neighbour]--;
@@ -37,6 +39,6 @@ class Solution {
 	            
 	        }
 	    }
-	    return ans;
+	    return ans;   //if(count==n) return false ,else return true 
     }
 };
