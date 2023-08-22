@@ -1,4 +1,4 @@
-  int findPivot(vector<int>& nums,n){
+  int  findMin(vector<int>& nums,n){
   int l=0,r=n-1;
 
   while(l<r){
