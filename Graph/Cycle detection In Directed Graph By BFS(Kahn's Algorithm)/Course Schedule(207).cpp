@@ -1,25 +1,25 @@
-bool topologicalSortCheck(unordered_map<int, vector<int>> &adj, int n, vector<int> &indegree) {
+ bool topologicalSortCheck(unordered_map<int, vector<int>> &adj, int n, vector<int> &indegree) {
         queue<int> que;
-        int count = 0;
 //1.0 indegree wale ko push kardo
        for(int i = 0; i<n; i++) {
-            if(indegree[i] == 0) {
-                count++;
-                que.push(i);
-            }
+            if(indegree[i] == 0)  que.push(i);
         }
+
 //2.Do bfs
+     int count = 0;
+
     while(!que.empty()){
      int front=que.front();
       que.pop();
 
+//3.count ko increment kardo
+      count++;
+
       for(auto &neighbour:adj[front]){
       indegree[neighbour]--;
 
-        if( indegree[neighbour]==0) {
-          count++;
-          que.push( neighbour);
-        }
+        if( indegree[neighbour]==0)   que.push( neighbour);
+        
       }
     }
 
