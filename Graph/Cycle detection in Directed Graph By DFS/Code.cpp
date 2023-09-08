@@ -10,7 +10,7 @@ class Solution {
         
         for(int &neighbour : adj[node]) {
             //if not visited, then we check for cycle in DFS
-            if(visited[neighbour] == false && isCycleDFS(adj, v, visited, dfsVisited))
+            if(visited[neighbour] == false && isCycleDFS(adj, neighbour, visited, dfsVisited))
                 return true;
             else if(dfsVisited[neighbour] == true)
                 return true;
