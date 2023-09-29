@@ -1,49 +1,53 @@
 class Solution {
 public:
-//IST APPROACH O(n^2)
- int path=0;
- void solve(TreeNode* root,int targetSum,int CurrentSum){
- if(root==NULL) return;
+//Ist Approach  
+int paths = 0;
+void solve(TreeNode* root, int targetSum,long long int currSum){
+  if(root == NULL) return;
 
- CurrentSum+=root->val;
-
- if(targetSum == CurrentSum) path++;
- solve(root->left,targetSum,CurrentSum);
- solve(root->right,targetSum,CurrentSum);
- }
+  currSum+=root->val;
+  if(currSum == targetSum) paths++;
+  
+  solve(root->left, targetSum, currSum);
+  solve(root->right, targetSum, currSum);
+}
     int pathSum(TreeNode* root, int targetSum) {
         if(root == NULL) return 0;
 
-        solve(root,targetSum,0);
-        pathSum(root->left,targetSum);
-        pathSum(root->right,targetSum);
-        return path;
+        solve(root, targetSum, 0);
+        pathSum(root->left, targetSum);
+        pathSum(root->right, targetSum);
+
+        return paths;
     }
 
-//2nd Approach O(n)
-int output=0;
-  void solve(TreeNode* CurrRoot,long long int Currsum,int targetSum,unordered_map<long long int,long long int>m){
-   if(CurrRoot == NULL) return;
-     Currsum+=CurrRoot->val;
+//2nd Approach 
+ int paths = 0;
+void solve(TreeNode* currRoot, int targetSum, long long int currSum,  unordered_map<long long int,long long int>mp){
 
-           if(Currsum == targetSum) output++; 
-       
-            if(m.find(Currsum-targetSum)!=m.end()) output+=m[Currsum-targetSum];
-            
-            if(m.find(Currsum)!=m.end()) m[Currsum]++;
+  if(currRoot == NULL) return;
+  currSum+=currRoot->val;
 
-          else m[Currsum]=1;
+if(currSum == targetSum) paths++;
 
-         solve(CurrRoot->left, Currsum,targetSum,m);
-         solve(CurrRoot->right, Currsum,targetSum,m);
-            m[Currsum]--;
-            return;
-  }
+if(mp.find(currSum - targetSum)!= mp.end()) paths+= mp[currSum - targetSum]; //agar diff map mai present hai
 
- int pathSum(TreeNode* root, int targetSum) {
-  if(root == NULL) return 0;
-  unordered_map<long long int,long long int>m;  
-  solve(root,0,targetSum,m);
-  return output;
+  if(mp.find(currSum)!=mp.end()) mp[currSum]++; //pehle wale Entry ko bda do
+
+  else mp[currSum] = 1; //New Entry krdo
+
+  solve(currRoot->left, targetSum ,currSum, mp);
+  solve(currRoot->right, targetSum ,currSum, mp);
+  
+  mp[currSum]--;//wapas hote time map se Entry hata do
+  return;
  }
+
+    int pathSum(TreeNode* root, int targetSum) {
+
+        if(root == NULL) return 0;
+        unordered_map<long long int,long long int>mp;  // node -> frequency
+        solve(root, targetSum, 0, mp);
+        return paths;
+    }
 };
